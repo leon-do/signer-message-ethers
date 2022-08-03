@@ -1,0 +1,17 @@
+<input id="message" value="hello" />
+<button onClick="sign()">Sign</button>
+<div id="signature"></div>
+
+<script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+
+<script>
+    async function sign() {
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        await provider.send("eth_requestAccounts", []);
+        const signer = provider.getSigner()
+        const message = document.getElementById("message").value
+        const signature = await signer.signMessage(message)
+        document.getElementById("signature").innerHTML = signature
+        console.log(signature)
+    }
+</script>
